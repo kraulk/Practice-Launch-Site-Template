@@ -1,0 +1,53 @@
+# Practice-wide facts (not translated). Edited in Pages CMS under "Practice settings".
+# Every value marked EXAMPLE must be replaced before launch: `npm run launch-check`.
+practiceName: EXAMPLE Bright Path Psychological Services
+tagline: Evaluations and consultation for children, families, and schools
+url: https://example.com
+clinician:
+  name: EXAMPLE Dr. Jordan Rivera
+  professionalTitle: EXAMPLE Licensed Psychologist
+  credentials: EXAMPLE PhD, NCSP
+  pronouns: ""
+  headshot:
+    src: ""
+    alt: ""
+licenses:
+  - state: EXAMPLE State
+    type: EXAMPLE Licensed Psychologist
+    number: "EXAMPLE 00000"
+contact:
+  phone: "EXAMPLE (555) 555-0100"
+  email: hello@example.com
+  showAddress: false
+  address:
+    street: ""
+    city: ""
+    region: ""
+    postalCode: ""
+  hours: EXAMPLE Monday–Thursday, 9am–5pm
+serviceArea:
+  summary: EXAMPLE Serving families and schools across the region, with telehealth consultation statewide.
+  regions:
+    - EXAMPLE County
+telehealth:
+  enabled: true
+  states:
+    - EXAMPLE State
+  psypact: false
+  note: Some parts of an evaluation, like standardized testing, usually happen in person.
+booking:
+  mode: portal
+  ehrName: EXAMPLE SimplePractice
+  url: https://example.com/portal
+  label: Request a consultation
+features:
+  schools: true
+  fees: true
+  faq: true
+  blog: false
+social: []
+seo:
+  defaultDescription: EXAMPLE Psychoeducational evaluations, independent educational evaluations (IEEs), and school consultation.
+  ogImage: ""
+analytics:
+  cloudflareToken: ""

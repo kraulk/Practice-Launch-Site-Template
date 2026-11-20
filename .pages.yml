@@ -1,0 +1,360 @@
+# Pages CMS configuration: https://pagescms.org/docs/
+#
+# This file must mirror src/content.config.ts field-for-field.
+# Change both together, following docs/playbooks/change-content-model.md.
+#
+# Edits made in Pages CMS are committed straight to the repo branch, and
+# Cloudflare Pages rebuilds the site from that commit. There is no server.
+
+settings:
+  # Hide the in-app config editor so clients can't break this file. Edit it in git instead.
+  config: false
+
+media:
+  - name: images
+    label: Images
+    input: public/uploads/images
+    output: /uploads/images
+    categories: [image]
+    rename: safe
+  - name: documents
+    label: Documents
+    input: public/uploads/documents
+    output: /uploads/documents
+    extensions: [pdf]
+    rename: safe
+
+components:
+  image:
+    label: Image
+    type: object
+    fields:
+      - name: src
+        label: Image
+        type: image
+        options: { media: images }
+      - name: alt
+        label: Alt text
+        type: string
+        description: Describe the image for someone who can't see it. Required whenever an image is set.
+  body:
+    label: Body
+    type: rich-text
+    options: { format: markdown, media: images }
+
+content:
+  # ---------------------------------------------------------------- Settings
+  - name: settings
+    label: Practice settings
+    description: Name, credentials, contact details, booking link, and which sections are turned on.
+    type: file
+    path: src/content/site/settings.yml
+    format: yaml
+    fields:
+      - { name: practiceName, label: Practice name, type: string, required: true }
+      - { name: tagline, label: Tagline, type: string }
+      - name: url
+        label: Website address
+        type: string
+        required: true
+        description: The live address, starting with https://
+        pattern: { regex: "^https://", message: Must start with https:// }
+      - name: clinician
+        label: Clinician
+        type: object
+        fields:
+          - { name: name, label: Full name, type: string, required: true }
+          - name: professionalTitle
+            label: Professional title
+            type: string
+            required: true
+            description: Use the exact title your state license or credential allows, e.g. "Licensed Psychologist", "LSSP", or "Licensed Educational Psychologist".
+          - { name: credentials, label: Credentials after name, type: string, description: "e.g. PhD, NCSP" }
+          - { name: pronouns, label: Pronouns, type: string }
+          - { name: headshot, label: Headshot, component: image }
+      - name: licenses
+        label: Licenses and credentials
+        type: object
+        list: true
+        fields:
+          - { name: state, label: State, type: string, required: true }
+          - { name: type, label: License or credential type, type: string, required: true }
+          - { name: number, label: Number, type: string }
+      - name: contact
+        label: Contact
+        type: object
+        fields:
+          - { name: phone, label: Phone, type: string }
+          - { name: email, label: Email, type: string }
+          - { name: showAddress, label: Show office address, type: boolean, default: false }
+          - name: address
+            label: Office address
+            type: object
+            fields:
+              - { name: street, label: Street, type: string }
+              - { name: city, label: City, type: string }
+              - { name: region, label: State, type: string }
+              - { name: postalCode, label: ZIP code, type: string }
+          - { name: hours, label: Hours, type: string }
+      - name: serviceArea
+        label: Service area
+        type: object
+        fields:
+          - { name: summary, label: Summary, type: text }
+          - { name: regions, label: Regions served, type: string, list: true }
+      - name: telehealth
+        label: Telehealth
+        type: object
+        fields:
+          - { name: enabled, label: Offer telehealth, type: boolean, default: false }
+          - { name: states, label: States where you can see clients remotely, type: string, list: true }
+          - name: psypact
+            label: PSYPACT authority to practice telepsychology
+            type: boolean
+            default: false
+            description: Only licensed psychologists who hold an APIT from PSYPACT should turn this on.
+          - { name: note, label: Telehealth note, type: text }
+      - name: booking
+        label: Booking
+        type: object
+        description: The site never collects clinical information. Requests go through your EHR portal, email, or phone.
+        fields:
+          - name: mode
+            label: How clients request an appointment
+            type: select
+            required: true
+            options:
+              values:
+                - { value: portal, label: Client portal link }
+                - { value: email, label: Email }
+                - { value: phone, label: Phone }
+          - { name: ehrName, label: Portal / EHR name, type: string, description: "e.g. SimplePractice, TherapyNotes" }
+          - { name: url, label: Portal link, type: string }
+          - { name: label, label: Button text, type: string, required: true }
+      - name: features
+        label: Sections
+        type: object
+        fields:
+          - { name: schools, label: Schools and districts page, type: boolean, default: true }
+          - { name: fees, label: Fees page, type: boolean, default: true }
+          - { name: faq, label: FAQ page, type: boolean, default: true }
+          - { name: blog, label: Resources (articles), type: boolean, default: false }
+      - name: social
+        label: Social and professional links
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string, required: true }
+          - { name: url, label: Link, type: string, required: true }
+      - name: seo
+        label: Search and sharing
+        type: object
+        fields:
+          - { name: defaultDescription, label: Default description, type: text, required: true, options: { maxlength: 160 } }
+          - { name: ogImage, label: Social sharing image, type: image, options: { media: images } }
+      - name: analytics
+        label: Analytics
+        type: object
+        fields:
+          - name: cloudflareToken
+            label: Cloudflare Web Analytics token
+            type: string
+            description: Optional. Cookieless and privacy-friendly. Do not add any other tracking scripts.
+
+  # ---------------------------------------------------------------- Home
+  - name: home
+    label: Home page
+    type: file
+    path: src/content/home/en.yml
+    format: yaml
+    fields:
+      - { name: seoTitle, label: Search title (optional), type: string }
+      - { name: seoDescription, label: Search description (optional), type: text, options: { maxlength: 160 } }
+      - name: hero
+        label: Top section
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string, required: true }
+          - { name: subheading, label: Subheading, type: text }
+          - { name: image, label: Image, component: image }
+      - { name: intro, label: Introduction, type: text }
+      - name: audiences
+        label: Who you serve
+        type: object
+        fields:
+          - name: families
+            label: Families panel
+            type: object
+            fields:
+              - { name: heading, label: Heading, type: string, required: true }
+              - { name: text, label: Text, type: text, required: true }
+              - { name: linkLabel, label: Link text, type: string, required: true }
+          - name: schools
+            label: Schools panel
+            type: object
+            fields:
+              - { name: heading, label: Heading, type: string, required: true }
+              - { name: text, label: Text, type: text, required: true }
+              - { name: linkLabel, label: Link text, type: string, required: true }
+      - name: highlights
+        label: Highlights
+        type: object
+        list: { max: 4 }
+        fields:
+          - { name: title, label: Title, type: string, required: true }
+          - { name: text, label: Text, type: text, required: true }
+      - name: closing
+        label: Closing call to action
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string, required: true }
+          - { name: text, label: Text, type: text }
+
+  # ---------------------------------------------------------------- Pages
+  - name: pages
+    label: Pages
+    description: About, Schools, Contact, Privacy, and Accessibility. These pages have fixed addresses.
+    type: collection
+    path: src/content/pages/en
+    format: yaml-frontmatter
+    operations: { create: false, delete: false, rename: false }
+    view:
+      fields: [title]
+      primary: title
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Search description, type: text, required: true, options: { maxlength: 160 } }
+      - { name: heading, label: Page heading (optional), type: string }
+      - { name: image, label: Image, component: image }
+      - name: downloads
+        label: Downloads
+        type: object
+        list: true
+        description: e.g. a capability statement or CV for district partners. Never upload client records.
+        fields:
+          - { name: label, label: Label, type: string, required: true }
+          - { name: file, label: File, type: file, required: true, options: { media: documents } }
+      - name: cta
+        label: Button (optional)
+        type: object
+        fields:
+          - { name: label, label: Text, type: string }
+          - { name: href, label: Link, type: string }
+      - { name: body, label: Content, component: body }
+
+  # ---------------------------------------------------------------- Services
+  - name: services
+    label: Services
+    type: collection
+    path: src/content/services/en
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, audience, order, draft]
+      primary: title
+      sort: [order, title]
+      default: { sort: order, order: asc }
+    fields:
+      - { name: title, label: Service name, type: string, required: true }
+      - { name: summary, label: Short summary, type: text, required: true, options: { maxlength: 200 } }
+      - name: audience
+        label: Who it's for
+        type: select
+        required: true
+        options:
+          values:
+            - { value: families, label: Families }
+            - { value: schools, label: Schools and districts }
+            - { value: both, label: Both }
+      - name: formats
+        label: Format
+        type: select
+        options:
+          multiple: true
+          values:
+            - { value: in-person, label: In person }
+            - { value: telehealth, label: Telehealth }
+            - { value: hybrid, label: Hybrid }
+            - { value: on-site, label: On site at school }
+      - { name: duration, label: Typical length, type: string }
+      - { name: priceNote, label: Price note, type: string }
+      - { name: order, label: Sort order, type: number, default: 100, description: Lower numbers appear first. }
+      - { name: featured, label: Feature on home page, type: boolean, default: false }
+      - { name: draft, label: Draft (hidden), type: boolean, default: false }
+      - { name: body, label: Description, component: body }
+
+  # ---------------------------------------------------------------- Fees
+  - name: fees
+    label: Fees and insurance
+    type: file
+    path: src/content/fees/en.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Search description, type: text, required: true, options: { maxlength: 160 } }
+      - name: items
+        label: Fees
+        type: object
+        list: true
+        fields:
+          - { name: service, label: Service, type: string, required: true }
+          - { name: price, label: Price, type: string, required: true }
+          - { name: note, label: Note, type: string }
+      - name: insurance
+        label: Insurance
+        type: object
+        fields:
+          - name: status
+            label: Insurance status
+            type: select
+            required: true
+            options:
+              values:
+                - { value: out-of-network, label: Out of network }
+                - { value: in-network, label: In network with some plans }
+                - { value: not-accepted, label: Private pay only }
+          - { name: networks, label: In-network plans, type: string, list: true }
+          - { name: superbills, label: Superbills available, type: boolean, default: true }
+      - { name: paymentMethods, label: Payment methods, type: string, list: true }
+      - { name: cancellationPolicy, label: Cancellation policy, type: text }
+      - { name: body, label: Additional notes, component: body }
+
+  # ---------------------------------------------------------------- FAQ
+  - name: faq
+    label: FAQ
+    type: file
+    path: src/content/faq/en.yml
+    format: yaml
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Search description, type: text, required: true, options: { maxlength: 160 } }
+      - name: items
+        label: Questions
+        type: object
+        list: true
+        fields:
+          - { name: question, label: Question, type: string, required: true }
+          - { name: answer, label: Answer, type: text, required: true }
+
+  # ---------------------------------------------------------------- Resources
+  - name: posts
+    label: Resources (articles)
+    description: Only shown when "Resources" is turned on in Practice settings → Sections.
+    type: collection
+    path: src/content/posts/en
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, pubDate, draft]
+      primary: title
+      sort: [pubDate, title]
+      default: { sort: pubDate, order: desc }
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: description, label: Summary, type: text, required: true, options: { maxlength: 160 } }
+      - { name: pubDate, label: Published, type: date, required: true }
+      - { name: updatedDate, label: Updated, type: date }
+      - { name: image, label: Image, component: image }
+      - { name: tags, label: Tags, type: string, list: true }
+      - { name: draft, label: Draft (hidden), type: boolean, default: false }
+      - { name: body, label: Article, component: body }

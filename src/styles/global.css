@@ -1,0 +1,25 @@
+/* TEMPLATE LAYER: shared by every client site. Brand values live in theme.css. */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "./theme.css";
+
+@layer base {
+  html {
+    @apply bg-surface font-sans text-ink antialiased;
+    text-size-adjust: 100%;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

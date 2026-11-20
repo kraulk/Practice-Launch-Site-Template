@@ -1,0 +1,25 @@
+/*
+ * CLIENT LAYER: per-client brand tokens. This is the only CSS file that should
+ * differ between client sites. Keep the token names; change the values.
+ *
+ * Contrast rules (WCAG 2.2 AA): `ink` and `ink-muted` on `surface`/`surface-alt`
+ * must be >= 4.5:1, and `primary-contrast` on `primary` must be >= 4.5:1. `accent` is
+ * decorative only and is never used for text. Check every change: docs/playbooks/new-client.md.
+ */
+@theme {
+  --color-primary: #2f6b66;
+  --color-primary-strong: #234f4b;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #d4924a;
+  --color-surface: #fbfaf7;
+  --color-surface-alt: #f1eee6;
+  --color-ink: #1d282d;
+  --color-ink-muted: #4a575e;
+  --color-line: #d8d3c7;
+
+  /* Self-host any webfont (never load from a third-party CDN). System stacks by default. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+
+  --radius-card: 0.75rem;
+}

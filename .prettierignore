@@ -1,0 +1,8 @@
+dist/
+.astro/
+node_modules/
+package-lock.json
+public/uploads/
+# Pages CMS writes these; keep its formatting so CMS diffs stay small.
+src/content/
+.pages.yml
