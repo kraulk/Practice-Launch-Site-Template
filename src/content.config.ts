@@ -107,10 +107,6 @@ const settings = defineCollection({
       defaultDescription: z.string().max(160),
       ogImage: optional(path),
     }),
-    analytics: z.object({
-      /** Cloudflare Web Analytics beacon token (cookieless). Leave blank for none. */
-      cloudflareToken: optional(z.string()),
-    }),
   }),
 });
 

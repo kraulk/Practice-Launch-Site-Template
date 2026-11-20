@@ -8,6 +8,12 @@ Client edits in Pages CMS ──commit──▶ GitHub repo (main) ──webhook
 You / an agent edit files ──push────┘
 ```
 
+## 0. Ownership: set it up so the client can leave with everything
+
+Create the GitHub repo, Cloudflare account, and domain registration **in the client's name** (or
+transfer them at handoff), and add yourself as a collaborator or member. Pages CMS access,
+analytics data, and the domain then stay with the practice if you stop working together.
+
 ## 1. Create the client repo
 
 1. On GitHub, mark this repo as a **Template repository** (Settings → General), one time only.
@@ -26,7 +32,9 @@ You / an agent edit files ──push────┘
    non-production builds `noindex`.
 4. Custom domain: Pages project → Custom domains → add the apex and `www`. Redirect one to the
    other in `public/_redirects`.
-5. Optional: Web Analytics → add site → copy the token into Practice settings → Analytics.
+5. Optional analytics: Pages project → **Metrics** → **Web Analytics** → **Enable**. Cloudflare
+   adds its cookieless beacon on the next deploy. There's no token or code change, and the client
+   can turn it on or off themselves. Don't add any other analytics (`docs/compliance.md#tracking`).
 
 Security and caching headers ship in `public/_headers`.
 

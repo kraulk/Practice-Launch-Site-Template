@@ -32,4 +32,6 @@ git merge template/main --allow-unrelated-histories   # first sync only needs th
 
 Record content-shape changes here, newest first, so client repos can update their content.
 
-_None yet._
+- **Removed `settings.analytics`** (ADR-010). Delete the `analytics:` block from
+  `src/content/site/settings.yml`. The build ignores it if left in, but it's dead config. If the
+  client had a token set, enable Web Analytics in their Cloudflare Pages dashboard instead.

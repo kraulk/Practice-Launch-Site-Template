@@ -43,7 +43,6 @@ calling `getCollection` directly.
 | `features.schools` / `fees` / `faq` / `blog`                        | booleans                       | Toggle routes, nav, and sitemap entries                                            |
 | `social[]`                                                          | `{label, url}`                 | e.g. LinkedIn, Psychology Today profile                                            |
 | `seo.defaultDescription` (≤160) / `seo.ogImage`                     |                                |                                                                                    |
-| `analytics.cloudflareToken`                                         | string?                        | The only analytics allowed                                                         |
 
 ## `home`
 
@@ -79,6 +78,8 @@ become paragraphs.
 ## `posts`
 
 `title`, `description` (≤160), `pubDate`, `updatedDate?`, `image?`, `tags[]`, `draft`, and a Markdown body.
+
+Analytics isn't a content field. It's enabled in the Cloudflare dashboard (`docs/deploy.md`).
 
 ## Conventions
 

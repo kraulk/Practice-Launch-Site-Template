@@ -21,7 +21,6 @@ items here as they land.
 - [ ] `Footer.astro`: contact details, licenses (state, type, number), telehealth states, crisis notice, and links to Privacy, Accessibility, and the Good Faith Estimate.
 - [ ] `BookingCta.astro`: one component for every "request appointment" button, driven by `settings.booking` (portal → external link with `rel="noopener"`; email → `mailto:` + caution; phone → `tel:`).
 - [ ] Typography: `prose` styles mapped to theme tokens for Markdown bodies.
-- [ ] Cloudflare Web Analytics beacon, rendered only when `analytics.cloudflareToken` is set.
 
 **Accepts when:** keyboard-only navigation works across header, menu, and footer; turning off a feature flag removes the nav item and route; Lighthouse accessibility = 100 on the smoke page.
 

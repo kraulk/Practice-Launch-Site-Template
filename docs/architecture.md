@@ -68,3 +68,12 @@ adding a YAML parser dependency. Keep `url` a top-level, single-line key.
 **Decision:** Pin `typescript@^6`. **Why:** `@astrojs/check` 0.9.x declares peer support for
 TypeScript 5–6 only, and TS 7 (the native compiler) isn't supported yet. Revisit when
 `@astrojs/check` widens its peer range.
+
+## ADR-010: Analytics enabled in the Cloudflare dashboard, not in code
+
+**Decision:** Cloudflare Web Analytics is turned on per project in the Cloudflare Pages dashboard,
+which injects the beacon at deploy time. The template has no analytics field or snippet.
+**Why:** It's one less setting to maintain, clients can toggle it without editing the site or
+asking a developer, and the analytics data stays with the Cloudflare account that owns the site.
+**Consequence:** any future Content-Security-Policy must allow Cloudflare's beacon hosts
+(`docs/compliance.md#tracking`).

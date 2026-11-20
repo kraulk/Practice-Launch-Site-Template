@@ -152,14 +152,6 @@ content:
         fields:
           - { name: defaultDescription, label: Default description, type: text, required: true, options: { maxlength: 160 } }
           - { name: ogImage, label: Social sharing image, type: image, options: { media: images } }
-      - name: analytics
-        label: Analytics
-        type: object
-        fields:
-          - name: cloudflareToken
-            label: Cloudflare Web Analytics token
-            type: string
-            description: Optional. Cookieless and privacy-friendly. Do not add any other tracking scripts.
 
   # ---------------------------------------------------------------- Home
   - name: home

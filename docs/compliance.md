@@ -29,8 +29,10 @@ HIPAA risk. A 2024 federal court decision (_AHA v. Becerra_) vacated part of tha
 applied to unauthenticated pages. The template takes the conservative position regardless,
 because it costs nothing:
 
-- **Allowed:** Cloudflare Web Analytics (cookieless, no cross-site identifiers), set with
-  `analytics.cloudflareToken`.
+- **Allowed:** Cloudflare Web Analytics (cookieless, no cross-site identifiers), enabled in the
+  Cloudflare Pages dashboard. Cloudflare adds the beacon at deploy time, so nothing goes in the
+  code. If a Content-Security-Policy header is ever added to `public/_headers`, it must allow
+  `static.cloudflareinsights.com` (script) and `cloudflareinsights.com` (connect).
 - **Not allowed:** Google Analytics / Tag Manager, Meta Pixel, LinkedIn Insight, TikTok, Hotjar,
   Microsoft Clarity, FullStory, or any ad or retargeting tag. `launch-check` fails on known ones.
 - **Fonts are self-hosted.** No Google Fonts / Typekit requests, since they disclose visitor IPs to a
