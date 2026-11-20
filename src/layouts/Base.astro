@@ -1,0 +1,39 @@
+---
+/**
+ * Page shell for every route: <html lang>, head (via <Seo>), skip link,
+ * header, <main id="main">, and footer. Views pass their SEO props through.
+ */
+import "@/styles/global.css";
+import { t } from "@/i18n";
+import Seo from "@/components/Seo.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import type { ComponentProps } from "astro/types";
+
+type Props = ComponentProps<typeof Seo> & { locale: string };
+
+const { locale, ...seo } = Astro.props;
+const ui = t(locale);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo {...seo} />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a
+      href="#main"
+      class="sr-only rounded-card bg-primary px-4 py-3 font-semibold text-primary-contrast focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:inline-flex focus:min-h-11 focus:items-center"
+    >
+      {ui.skipToContent}
+    </a>
+    <Header locale={locale} />
+    <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

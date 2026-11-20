@@ -15,8 +15,10 @@ protected health information (PHI) or student education records.
 - Appointment requests use the client's **EHR client portal** (SimplePractice, TherapyNotes,
   etc.). The EHR vendor signs a Business Associate Agreement. Cloudflare and Pages CMS do not, and
   shouldn't need to.
-- `booking.mode` can be `portal` (preferred), `email`, or `phone`. Email and phone CTAs always show
-  the `emailCaution` notice from `src/i18n/`.
+- `booking.mode` can be `portal` (preferred), `email`, or `phone`. Email CTAs always show the
+  `emailCaution` notice and phone CTAs the `phoneCaution` (voicemail) notice from `src/i18n/`.
+  The header button has no room for a caution, so in email and phone modes it links to the
+  Contact page instead of straight to `mailto:`/`tel:`. All of this lives in `src/lib/booking.ts`.
 - District partners exchange referrals and records through the district's or EHR's secure channel,
   never through this site. The Schools page says so.
 - `npm run launch-check` warns on any `<form>` or `<iframe>`. A newsletter signup (name + email
@@ -84,6 +86,7 @@ Under the NASP _Principles for Professional Ethics_ and the APA _Ethical Princip
 | Crisis notice (988 / 911)              | Footer, every page                            | `src/i18n/en.ts` → `crisis`             |
 | Good Faith Estimate (No Surprises Act) | Fees page, and linked from footer and Contact | `src/i18n/en.ts` → `goodFaithEstimate`  |
 | Email caution (no clinical info)       | Contact page, near any email CTA              | `src/i18n/en.ts` → `emailCaution`       |
+| Voicemail caution (no clinical info)   | Next to any phone (`tel:`) booking CTA        | `src/i18n/en.ts` → `phoneCaution`       |
 | License(s) and number(s)               | Footer and/or About                           | `settings.licenses`                     |
 | Privacy policy                         | `/privacy/`                                   | `src/content/pages/en/privacy.md`       |
 | Accessibility statement                | `/accessibility/`                             | `src/content/pages/en/accessibility.md` |
@@ -93,6 +96,12 @@ self-pay clients a Good Faith Estimate and post notice of that right on their we
 (45 CFR 149.610). The template uses the CMS model notice wording. Re-check it against
 <https://www.cms.gov/nosurprises> when updating the template. The notice is template copy, not CMS
 content, so a client can't delete it by accident.
+
+The notice is **always reachable**, whether or not the client publishes prices. With
+`features.fees` on, it's part of `/fees/`. With it off, `/good-faith-estimate/` renders the same
+notice. The footer links to whichever exists (`goodFaithEstimateHref()` in `src/lib/routes.ts`).
+There's intentionally no switch to hide it: a consultant who only contracts with districts loses
+nothing by showing it, while an individual practice that hides it is out of compliance.
 
 The HIPAA **Notice of Privacy Practices** is the client's own document. It's usually delivered
 through the EHR. It can be linked as a PDF download, but the site doesn't generate it.

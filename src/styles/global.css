@@ -23,3 +23,38 @@
     }
   }
 }
+
+/*
+ * Typography for Markdown bodies (`<Prose>` / `.prose`). Maps the typography
+ * plugin's color variables to theme tokens so prose re-skins with theme.css.
+ */
+@utility prose {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-lead: var(--color-ink-muted);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-counters: var(--color-ink-muted);
+  --tw-prose-bullets: var(--color-primary);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-quotes: var(--color-ink);
+  --tw-prose-quote-borders: var(--color-primary);
+  --tw-prose-captions: var(--color-ink-muted);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-pre-code: var(--color-surface);
+  --tw-prose-pre-bg: var(--color-ink);
+  --tw-prose-th-borders: var(--color-line);
+  --tw-prose-td-borders: var(--color-line);
+
+  & :where(h1, h2, h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    font-family: var(--font-display);
+  }
+
+  & :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    text-underline-offset: 0.2em;
+  }
+
+  & :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover {
+    color: var(--color-primary-strong);
+  }
+}

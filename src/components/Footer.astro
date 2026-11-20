@@ -1,0 +1,130 @@
+---
+/**
+ * Site footer: crisis notice, contact details, licensure, telehealth states,
+ * and policy links. The crisis notice and the Good Faith Estimate link are
+ * required on every page (docs/compliance.md#required-and-recommended-notices).
+ */
+import { t } from "@/i18n";
+import { getSettings } from "@/lib/content";
+import { telHref } from "@/lib/booking";
+import { goodFaithEstimateHref, href } from "@/lib/routes";
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const ui = t(locale);
+const settings = await getSettings();
+const { contact, licenses, telehealth, social } = settings;
+const address = contact.showAddress ? contact.address : undefined;
+const cityLine =
+  address &&
+  [address.city, [address.region, address.postalCode].filter(Boolean).join(" ")].filter(Boolean).join(", ");
+
+const policyLinks = [
+  { label: ui.nav.privacy, href: href("privacy/", locale) },
+  { label: ui.nav.accessibility, href: href("accessibility/", locale) },
+  { label: ui.nav.goodFaithEstimate, href: goodFaithEstimateHref(settings.features, locale) },
+];
+const year = new Date().getFullYear();
+const headingClass = "font-display text-lg font-semibold text-ink";
+const linkClass =
+  "inline-flex min-h-11 items-center text-ink underline decoration-primary underline-offset-4 hover:decoration-2";
+---
+
+<footer class="mt-16 border-t border-line bg-surface-alt text-ink">
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <p class="rounded-card border-l-4 border-primary bg-surface p-4 font-medium">{ui.crisis}</p>
+
+    <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <section aria-labelledby="footer-contact">
+        <h2 id="footer-contact" class={headingClass}>
+          {ui.contact}
+        </h2>
+        <p class="mt-3 font-semibold">{settings.practiceName}</p>
+        <ul class="mt-1">
+          {contact.phone && (
+            <li>
+              <a class={linkClass} href={telHref(contact.phone)}>
+                {contact.phone}
+              </a>
+            </li>
+          )}
+          {contact.email && (
+            <li>
+              <a class={linkClass} href={`mailto:${contact.email}`}>
+                {contact.email}
+              </a>
+              <p class="text-sm text-ink-muted">{ui.emailCaution}</p>
+            </li>
+          )}
+          {contact.hours && <li class="mt-2 text-ink-muted">{contact.hours}</li>}
+          {social.map((link) => (
+            <li>
+              <a class={linkClass} href={link.url} rel="me">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        {address && (address.street || cityLine) && (
+          <address class="mt-3 text-ink-muted not-italic">
+            {address.street && <span class="block">{address.street}</span>}
+            {cityLine && <span class="block">{cityLine}</span>}
+          </address>
+        )}
+      </section>
+
+      {(licenses.length > 0 || telehealth.enabled) && (
+        <section aria-labelledby="footer-licensure">
+          <h2 id="footer-licensure" class={headingClass}>
+            {ui.licensure}
+          </h2>
+          <p class="mt-3">
+            {settings.clinician.name}
+            {settings.clinician.credentials && `, ${settings.clinician.credentials}`}
+          </p>
+          <ul class="mt-2 space-y-2 text-ink-muted">
+            {licenses.map((license) => (
+              <li>
+                {license.type}, {license.state}
+                {license.number && (
+                  <>
+                    {" "}
+                    · {ui.licenseNumber} {license.number}
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+          {telehealth.enabled && telehealth.states.length > 0 && (
+            <p class="mt-3 text-ink-muted">
+              {ui.telehealthIn} {telehealth.states.join(", ")}.
+            </p>
+          )}
+          {telehealth.enabled && telehealth.psypact && <p class="mt-2 text-ink-muted">{ui.psypact}</p>}
+        </section>
+      )}
+
+      <nav aria-labelledby="footer-policies">
+        <h2 id="footer-policies" class={headingClass}>
+          {ui.footerNavLabel}
+        </h2>
+        <ul class="mt-1">
+          {policyLinks.map((link) => (
+            <li>
+              <a class={linkClass} href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <p class="mt-10 text-sm text-ink-muted">
+      © {year} {settings.practiceName}
+    </p>
+  </div>
+</footer>

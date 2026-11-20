@@ -11,8 +11,8 @@ schools and districts, and telehealth.
 - **Accessible:** built to WCAG 2.2 AA
 - **Agent-ready:** `AGENTS.md` plus playbooks, so Claude Code, Codex, Cursor, and others build it the same way
 
-> **Status:** Phase 0 (workspace). Dependencies are declared but not installed yet. The build plan
-> is in [`docs/roadmap.md`](docs/roadmap.md).
+> **Status:** Phase 1 (foundation: layout, header, footer, booking CTA, SEO). Pages come in
+> Phase 2. The build plan is in [`docs/roadmap.md`](docs/roadmap.md).
 
 ## Quick start
 

@@ -1,0 +1,34 @@
+---
+/**
+ * The one "request an appointment" button. Behavior comes from `settings.booking`
+ * (see src/lib/booking.ts). Never build a booking link by hand elsewhere.
+ */
+import { getSettings } from "@/lib/content";
+import { bookingLink } from "@/lib/booking";
+
+interface Props {
+  locale: string;
+  /** Header use: smaller, no note, and email/phone modes link to Contact. */
+  compact?: boolean;
+  class?: string;
+}
+
+const { locale, compact = false, class: className } = Astro.props;
+const settings = await getSettings();
+const link = bookingLink(settings, locale, compact);
+const showNote = !compact && link.note;
+---
+
+<div class:list={["flex flex-col gap-2", !compact && "items-start", className]}>
+  <a
+    href={link.href}
+    rel={link.external ? "noopener" : undefined}
+    class:list={[
+      "inline-flex min-h-11 items-center justify-center rounded-card bg-primary font-semibold text-primary-contrast no-underline transition-colors hover:bg-primary-strong",
+      compact ? "px-4 py-2 text-sm" : "px-6 py-3",
+    ]}
+  >
+    {link.label}
+  </a>
+  {showNote && <p class="max-w-prose text-sm text-ink-muted">{link.note}</p>}
+</div>

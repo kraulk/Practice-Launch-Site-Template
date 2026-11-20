@@ -1,26 +1,5 @@
 ---
-/**
- * Phase 0 smoke test: proves the content pipeline works.
- * Replaced in Phase 1 of docs/roadmap.md by a real view and layout.
- */
-import "@/styles/global.css";
-import { getSettings, getSingleton } from "@/lib/content";
-
-const settings = await getSettings();
-const home = await getSingleton("home");
+import SmokeView from "@/views/SmokeView.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{settings.practiceName}</title>
-  </head>
-  <body class="mx-auto max-w-2xl p-8">
-    <p class="text-ink-muted text-sm">Template scaffold. See docs/roadmap.md.</p>
-    <h1 class="font-display text-primary mt-4 text-4xl">{home.data.hero.heading}</h1>
-    <p class="mt-4">
-      {settings.clinician.name}, {settings.clinician.professionalTitle}
-    </p>
-  </body>
-</html>
+<SmokeView locale="en" />

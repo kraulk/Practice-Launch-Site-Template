@@ -14,6 +14,8 @@ export async function getSettings() {
   return entry.data;
 }
 
+export type Settings = Awaited<ReturnType<typeof getSettings>>;
+
 export async function getSingleton<C extends "home" | "fees" | "faq">(collection: C, locale = defaultLocale) {
   const entry = await getEntry(collection, locale);
   if (!entry) throw new Error(`Missing ${collection} content for locale "${locale}"`);

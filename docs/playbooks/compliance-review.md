@@ -11,7 +11,7 @@ _Should fix_ / _Ask the client_. Don't silently rewrite clinical or credential c
 ### Privacy
 
 - [ ] No `<form>`, chat widget, upload, or embed that could collect health or student information
-- [ ] Email/phone CTAs show the email caution, and nothing invites sending records or details by email
+- [ ] Email CTAs show the email caution, phone CTAs the voicemail caution, and nothing invites sending records or details by email or voicemail
 - [ ] No tracking scripts or third-party font/CDN requests (`npm run launch-check`)
 
 ### Credentials and claims
@@ -27,7 +27,7 @@ _Should fix_ / _Ask the client_. Don't silently rewrite clinical or credential c
 ### Required notices
 
 - [ ] Crisis notice in footer
-- [ ] Good Faith Estimate on `/fees/` (if fees enabled) and linked from footer/contact
+- [ ] Good Faith Estimate on `/fees/` (or `/good-faith-estimate/` when fees are off) and linked from footer/contact
 - [ ] License state, type, and number visible
 - [ ] Privacy and accessibility pages are reviewed by the client, with no `EXAMPLE` left
 

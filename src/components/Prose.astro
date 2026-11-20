@@ -1,0 +1,11 @@
+---
+/** Wrapper for rendered Markdown bodies. Typography colors map to theme tokens in global.css. */
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={["prose", className]}>
+  <slot />
+</div>

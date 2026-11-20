@@ -1,0 +1,51 @@
+---
+/**
+ * Everything search engines and link previews read: title, description,
+ * canonical URL, Open Graph/Twitter tags, and robots.
+ */
+import { getSettings } from "@/lib/content";
+import { isIndexable } from "@/lib/build-env";
+import { t } from "@/i18n";
+
+interface Props {
+  /** Page title. Rendered as `Title | Practice`. Omit on the home page. */
+  title?: string;
+  /** Falls back to `settings.seo.defaultDescription`. */
+  description?: string;
+  /** Social sharing image path (`/uploads/...`). Falls back to `settings.seo.ogImage`. */
+  image?: string;
+  /** Alt text for `image`. */
+  imageAlt?: string;
+  type?: "website" | "article";
+  /** Force `noindex` (e.g. 404). Preview builds are always `noindex`. */
+  noindex?: boolean;
+}
+
+const settings = await getSettings();
+const { title, description, image, imageAlt, type = "website", noindex = false } = Astro.props;
+
+const fullTitle = title ? `${title} | ${settings.practiceName}` : settings.practiceName;
+const metaDescription = description ?? settings.seo.defaultDescription;
+const site = Astro.site ?? new URL(settings.url);
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageSrc = image ?? settings.seo.ogImage;
+const imageUrl = imageSrc ? new URL(imageSrc, site).href : undefined;
+const robots = noindex || !isIndexable ? "noindex, nofollow" : undefined;
+const ogLocale = t(Astro.currentLocale).ogLocale;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={metaDescription} />
+<link rel="canonical" href={canonical} />
+{robots && <meta name="robots" content={robots} />}
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={settings.practiceName} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={metaDescription} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={ogLocale} />
+{imageUrl && <meta property="og:image" content={imageUrl} />}
+{imageUrl && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+<meta name="twitter:card" content={imageUrl ? "summary_large_image" : "summary"} />
+<link rel="sitemap" href="/sitemap-index.xml" />

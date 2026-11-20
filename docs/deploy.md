@@ -28,8 +28,11 @@ analytics data, and the domain then stay with the practice if you stop working t
    - Build command: `npm run build`
    - Build output directory: `dist`
    - Node version comes from `.node-version` (22). Set `NODE_VERSION` only to override it.
-3. Production branch: `main`. Preview deployments for other branches are fine. `Seo.astro` marks
-   non-production builds `noindex`.
+3. Production branch: `main`. Preview deployments for other branches are fine. Builds of any other
+   branch get a `noindex` robots meta (`src/lib/build-env.ts`, from Cloudflare's `CF_PAGES_BRANCH`).
+   If the production branch isn't `main`, set the `PRODUCTION_BRANCH` environment variable to its
+   name. `public/_headers` also sends `X-Robots-Tag: noindex` on every `*.pages.dev` host, so only
+   the custom domain is indexed.
 4. Custom domain: Pages project → Custom domains → add the apex and `www`. Redirect one to the
    other in `public/_redirects`.
 5. Optional analytics: Pages project → **Metrics** → **Web Analytics** → **Enable**. Cloudflare

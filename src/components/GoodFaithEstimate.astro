@@ -1,0 +1,33 @@
+---
+/**
+ * Required No Surprises Act notice (45 CFR 149.610). Template copy from src/i18n,
+ * never CMS content. Rendered on /fees/ or, when fees are off, /good-faith-estimate/.
+ * The `good-faith-estimate` id is the footer link's target. Don't change it.
+ */
+import { t } from "@/i18n";
+
+interface Props {
+  locale: string;
+  /** Heading level: 1 on the standalone page, 2 inside the fees page. */
+  level?: 1 | 2;
+}
+
+const { locale, level = 2 } = Astro.props;
+const gfe = t(locale).goodFaithEstimate;
+const Heading = level === 1 ? "h1" : "h2";
+---
+
+<section id="good-faith-estimate" aria-labelledby="good-faith-estimate-heading" class="prose scroll-mt-6">
+  <Heading id="good-faith-estimate-heading">{gfe.heading}</Heading>
+  <p>{gfe.intro}</p>
+  <ul>
+    {gfe.points.map((point) => (
+      <li>{point}</li>
+    ))}
+  </ul>
+  <p>
+    {gfe.moreInfo.before}
+    <a href={gfe.moreInfo.href}>{gfe.moreInfo.linkText}</a>
+    {gfe.moreInfo.after}
+  </p>
+</section>

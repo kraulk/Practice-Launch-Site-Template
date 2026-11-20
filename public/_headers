@@ -8,3 +8,11 @@
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Keep *.pages.dev hosts out of search results; the custom domain is canonical.
+# (Cloudflare already sends noindex on preview URLs. Seo.astro also adds a robots meta on non-production builds.)
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex

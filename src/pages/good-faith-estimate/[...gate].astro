@@ -1,0 +1,13 @@
+---
+/** Exists only when fees are off. Otherwise the notice lives on /fees/. */
+import { getSettings } from "@/lib/content";
+import { gatedPaths } from "@/lib/routes";
+import GoodFaithEstimateView from "@/views/GoodFaithEstimateView.astro";
+
+export async function getStaticPaths() {
+  const settings = await getSettings();
+  return gatedPaths(!settings.features.fees);
+}
+---
+
+<GoodFaithEstimateView locale="en" />

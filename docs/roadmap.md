@@ -10,19 +10,26 @@ items here as they land.
 - [x] Content schema (`src/content.config.ts`) + Pages CMS config (`.pages.yml`) + seed content
 - [x] Tailwind v4 theme tokens, i18n strings (crisis + Good Faith Estimate notices)
 - [x] `launch-check` script, Cloudflare `_headers`, smoke-test home page
-- [x] Dependencies declared in `package.json` (**not yet installed**)
+- [x] Dependencies declared in `package.json`
 
-## Phase 1: Foundation
+## Phase 1: Foundation ✅
 
-- [ ] `npm install`, commit `package-lock.json`, and confirm `npm run verify` passes on the smoke page.
-- [ ] `src/layouts/Base.astro`: `<html lang>`, head via `<Seo>`, skip link, `<Header>`, `<main id="main">`, `<Footer>`.
-- [ ] `src/components/Seo.astro`: title template (`Page | Practice`), description, canonical, Open Graph/Twitter, and robots `noindex` on non-production builds (Cloudflare preview URLs).
-- [ ] `Header.astro`: practice name/wordmark, nav built from `settings.features`, booking CTA, and an accessible mobile menu (a `<button aria-expanded>` with a small inline script that works without JS by falling back to a visible list).
-- [ ] `Footer.astro`: contact details, licenses (state, type, number), telehealth states, crisis notice, and links to Privacy, Accessibility, and the Good Faith Estimate.
-- [ ] `BookingCta.astro`: one component for every "request appointment" button, driven by `settings.booking` (portal → external link with `rel="noopener"`; email → `mailto:` + caution; phone → `tel:`).
-- [ ] Typography: `prose` styles mapped to theme tokens for Markdown bodies.
+- [x] `npm install`, commit `package-lock.json`, and confirm `npm run verify` passes on the smoke page.
+- [x] `src/layouts/Base.astro`: `<html lang>`, head via `<Seo>`, skip link, `<Header>`, `<main id="main">`, `<Footer>`.
+- [x] `src/components/Seo.astro`: title template (`Page | Practice`), description, canonical, Open Graph/Twitter, and robots `noindex` on non-production builds (Cloudflare preview URLs).
+- [x] `Header.astro`: practice name/wordmark, nav built from `settings.features`, booking CTA, and an accessible mobile menu (a `<button aria-expanded>` with a small inline script that works without JS by falling back to a visible list).
+- [x] `Footer.astro`: contact details, licenses (state, type, number), telehealth states, crisis notice, and links to Privacy, Accessibility, and the Good Faith Estimate.
+- [x] `BookingCta.astro`: one component for every "request appointment" button, driven by `settings.booking` (portal → external link with `rel="noopener"`; email → `mailto:` + caution; phone → `tel:`).
+- [x] Typography: `prose` styles mapped to theme tokens for Markdown bodies.
+- [x] Also landed: optional `settings.logo` (ADR-014), route registry `src/lib/routes.ts` with
+      `[...gate].astro` feature-gated routes (ADR-011), and `/good-faith-estimate/`, which renders
+      only when `features.fees` is off so the notice is always reachable.
 
 **Accepts when:** keyboard-only navigation works across header, menu, and footer; turning off a feature flag removes the nav item and route; Lighthouse accessibility = 100 on the smoke page.
+
+> Verified with Playwright: keyboard order, skip link, menu open/close/Escape, no-JS fallback, and
+> flag/booking-mode variations. **Lighthouse wasn't run** in the build session. Run it once on a
+> preview deploy. Phase 4's axe suite automates this going forward.
 
 ## Phase 2: Pages
 
