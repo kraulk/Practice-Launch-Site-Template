@@ -1,0 +1,31 @@
+seoTitle: ""
+seoDescription: ""
+hero:
+  heading: EXAMPLE Clear answers about how your child learns
+  subheading: EXAMPLE Comprehensive psychoeducational evaluations and consultation from an experienced school psychologist.
+  image:
+    src: ""
+    alt: ""
+intro: >-
+  EXAMPLE Whether you are a parent with questions about learning, attention, or behavior, or a
+  school team that needs extra evaluation capacity, I provide thorough, practical assessments and
+  recommendations you can use.
+audiences:
+  families:
+    heading: For families
+    text: EXAMPLE Private evaluations, independent educational evaluations (IEEs), and parent consultation.
+    linkLabel: Services for families
+  schools:
+    heading: For schools and districts
+    text: EXAMPLE Contracted evaluations, consultation, and professional development for school teams.
+    linkLabel: Services for schools
+highlights:
+  - title: EXAMPLE Comprehensive evaluations
+    text: EXAMPLE Cognitive, academic, and social-emotional assessment with a clear written report.
+  - title: EXAMPLE School-ready recommendations
+    text: EXAMPLE Practical recommendations written for IEP and 504 teams.
+  - title: EXAMPLE Feedback you can understand
+    text: EXAMPLE A results meeting that explains what the findings mean and what to do next.
+closing:
+  heading: EXAMPLE Not sure where to start?
+  text: EXAMPLE A brief consultation call can help you decide whether an evaluation is the right next step.

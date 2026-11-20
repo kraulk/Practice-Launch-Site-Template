@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Phase 3 (docs/roadmap.md) replaces this file with src/pages/robots.txt.ts so the
+# Sitemap line can use the absolute production URL, which the spec requires.
