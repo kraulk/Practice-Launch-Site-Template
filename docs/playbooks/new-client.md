@@ -24,7 +24,8 @@
    pair for ≥ 4.5:1 contrast (calculate it and write the ratios in the commit message). Self-host
    any font.
 5. **Media:** put supplied images in `public/uploads/images/` (resize to ≤ 2000 px, WebP or JPEG)
-   with alt text in content. Put PDFs in `public/uploads/documents/`.
+   with alt text in content. Put PDFs in `public/uploads/documents/`. A supplied logo goes in
+   `settings.logo` (SVG preferred; alt text is the practice name).
 6. **Run** `npm run launch-check` and `npm run verify`. Fix everything except `EXAMPLE` markers
    tied to open questions.
 7. **Run** `docs/playbooks/compliance-review.md` over all content.

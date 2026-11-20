@@ -30,6 +30,7 @@ calling `getCollection` directly.
 | ------------------------------------------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------- |
 | `practiceName`                                                      | string                         | Shown in header, `<title>`, JSON-LD                                                |
 | `tagline`                                                           | string?                        |                                                                                    |
+| `logo`                                                              | image `{src, alt}`?            | Header logo. Empty → practice name shown as a text wordmark                        |
 | `url`                                                               | https URL                      | Production origin. Read by `astro.config.mjs` (keep it top-level, one line)        |
 | `clinician.name` / `professionalTitle` / `credentials` / `pronouns` | strings                        | Title must be exactly what the license allows ([compliance](compliance.md#titles)) |
 | `clinician.headshot`                                                | image `{src, alt}`             |                                                                                    |
@@ -40,7 +41,7 @@ calling `getCollection` directly.
 | `telehealth.enabled` / `states[]` / `psypact` / `note`              |                                |                                                                                    |
 | `booking.mode`                                                      | `portal` \| `email` \| `phone` | Drives every booking CTA                                                           |
 | `booking.ehrName` / `url` / `label`                                 |                                | `url` is required in practice when `mode: portal` (launch-check will enforce this) |
-| `features.schools` / `fees` / `faq` / `blog`                        | booleans                       | Toggle routes, nav, and sitemap entries                                            |
+| `features.schools` / `fees` / `faq` / `blog`                        | booleans                       | Toggle routes, nav, and sitemap entries (`src/lib/routes.ts`)                      |
 | `social[]`                                                          | `{label, url}`                 | e.g. LinkedIn, Psychology Today profile                                            |
 | `seo.defaultDescription` (≤160) / `seo.ogImage`                     |                                |                                                                                    |
 

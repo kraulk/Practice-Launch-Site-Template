@@ -2,6 +2,9 @@
 # Every value marked EXAMPLE must be replaced before launch: `npm run launch-check`.
 practiceName: EXAMPLE Bright Path Psychological Services
 tagline: Evaluations and consultation for children, families, and schools
+logo:
+  src: ""
+  alt: ""
 url: https://example.com
 clinician:
   name: EXAMPLE Dr. Jordan Rivera

@@ -54,7 +54,7 @@ in brackets, so an agent can fill `src/content/` directly from the completed for
 ## Look and feel
 
 21. Logo (SVG preferred) and any brand colors. If you have none, which of these words fit:
-    calm, warm, professional, playful, modern? [`src/styles/theme.css`]
+    calm, warm, professional, playful, modern? [`logo`, `src/styles/theme.css`]
 22. Two or three websites you like the look of, and why.
 23. Photos you own or have licensed. (Please no photos of clients or identifiable students.)
 

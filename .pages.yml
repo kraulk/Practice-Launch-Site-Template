@@ -53,6 +53,10 @@ content:
     fields:
       - { name: practiceName, label: Practice name, type: string, required: true }
       - { name: tagline, label: Tagline, type: string }
+      - name: logo
+        label: Logo
+        component: image
+        description: Optional. SVG or a wide PNG works best. Leave empty to show the practice name as text. Alt text is usually just the practice name.
       - name: url
         label: Website address
         type: string

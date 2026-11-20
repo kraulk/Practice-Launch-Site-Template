@@ -48,6 +48,8 @@ const settings = defineCollection({
   schema: z.object({
     practiceName: z.string(),
     tagline: optional(z.string()),
+    /** Optional logo for the header. Falls back to `practiceName` as a text wordmark. */
+    logo: optionalImage,
     url: z.url(),
     clinician: z.object({
       name: z.string(),
